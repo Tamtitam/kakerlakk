@@ -8,8 +8,10 @@
 </head>
 <body>
   <h1>Shoot</h1>
-  <canvas id="gameCanvas" width="600" height="800"></canvas>
-  <div id="msg" style="margin-top:8px;color:#555;font-family:Arial,sans-serif;font-size:14px;">Trykk en tast for å aktivere lyd</div>
+  <!-- Make canvas focusable and provide an accessible name describing controls -->
+  <canvas id="gameCanvas" width="600" height="800" tabindex="0" aria-label="Spill Shoot. Bruk venstre og høyre piltast for å bevege deg, og mellomrom for å skyte."></canvas>
+  <!-- Message area should be announced by screen readers when it changes -->
+  <div id="msg" role="status" aria-live="polite" aria-atomic="true" style="margin-top:8px;color:#555;font-family:Arial,sans-serif;font-size:14px;">Trykk en tast for å aktivere lyd</div>
 
   <!-- Lyd (WAV anbefales) -->
   <audio id="shootSound" src="sounds/shoot.wav" preload="auto"></audio>

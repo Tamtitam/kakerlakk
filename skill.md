@@ -20,12 +20,16 @@ The skill should:
 
 - Do not add ARIA everywhere.
 - Prefer native HTML elements before ARIA.
+- Before adding aria-label, verify that the element's implicit or explicit role allows an accessible name.
 - Use <button> instead of div role="button" when possible.
 - Use visible <label> elements for form fields when possible.
-- Use aria-label only when there is no visible text label.
+- Use aria-label only when there is no visible label AND the element's role supports an accessible name.
 - Do not use aria-hidden="true" on focusable elements.
 - Do not reference IDs that do not exist.
 - Do not claim that the code is fully WCAG compliant without manual testing.
+- - Remove `aria-label` when it is used on elements or roles that do not support accessible names.
+- Before adding or keeping `aria-label`, verify that the element's implicit or explicit role allows an accessible name.
+- If `aria-label` is invalid or unnecessary, remove it and prefer visible text, semantic HTML, `aria-labelledby`, `aria-describedby`, or a labelled wrapper when appropriate.
 
 ## What to check
 

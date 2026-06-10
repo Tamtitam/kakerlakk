@@ -39,6 +39,8 @@ document.addEventListener('keydown', () => {
   if (!audioUnlocked) {
     [shootSound, hitSound].forEach(el => { if (el) { el.muted = false; el.volume = 0.8; } });
     audioUnlocked = true; if (msg) msg.textContent = '';
+    // Focus the canvas so keyboard users can immediately control the game
+    if (canvas && typeof canvas.focus === 'function') try { canvas.focus(); } catch (e) {}
   }
 });
 
@@ -74,7 +76,10 @@ function drawGameOver(){ ctx.fillStyle='rgba(0,0,0,0.5)'; ctx.fillRect(0,0,WIDTH
 // Hjelpere
 function rectIntersect(ax,ay,aw,ah,bx,by,bw,bh){ return ax < bx + bw && ax + aw > bx && ay < by + bh && ay + ah > by; }
 function spawnFood(){ if (Math.random() < 1/currentSpawnRate){ const size = foodSizes[Math.floor(Math.random()*foodSizes.length)]; const img = new Image(); img.src = foodImgs[Math.floor(Math.random()*foodImgs.length)]; foods.push({ x: Math.random()*(WIDTH-size), y: -size, size, img }); } }
-function restartGame(){ player.x = WIDTH/2 - player.width/2; player.y = HEIGHT - 80; bullets = []; foods = []; score = 0; gameOver = false; level = 1; foodSpeed = speedForLevel(level); currentSpawnRate = spawnRateForLevel(level); startTimestamp = performance.now(); nextLevelTimestamp = startTimestamp + levelUpIntervalSec*1000; }
+function restartGame(){ player.x = WIDTH/2 - player.width/2; player.y = HEIGHT - 80; bullets = []; foods = []; score = 0; gameOver = false; level = 1; foodSpeed = speedForLevel(level); currentSpawnRate = spawnRateForLevel(level); startTimestamp = performance.now(); nextLevelTimestamp = startTimestamp + levelUpIntervalSec*1000;
+  // Focus the canvas after restarting the game
+  if (canvas && typeof canvas.focus === 'function') try { canvas.focus(); } catch (e) {}
+}
 function updateLevel(now){ if (gameOver || level>=maxLevel) return; if (now >= nextLevelTimestamp){ level++; foodSpeed = speedForLevel(level); currentSpawnRate = spawnRateForLevel(level); nextLevelTimestamp = now + levelUpIntervalSec*1000; } }
 
 // Logikk

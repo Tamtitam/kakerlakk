@@ -23,13 +23,14 @@ The skill should:
 - Before adding aria-label, verify that the element's implicit or explicit role allows an accessible name.
 - Use <button> instead of div role="button" when possible.
 - Use visible <label> elements for form fields when possible.
-- Use aria-label only when there is no visible label AND the element's role supports an accessible name.
+- Use aria-label only when there is no visible label AND the element's role supports an accessible name; prefer `aria-labelledby` or a visible `<label>` when possible.
 - Do not use aria-hidden="true" on focusable elements.
 - Do not reference IDs that do not exist.
 - Do not claim that the code is fully WCAG compliant without manual testing.
 - Remove `aria-label` when it is used on elements or roles that do not support accessible names.
-- Before adding or keeping `aria-label`, verify that the element's implicit or explicit role allows an accessible name.
 - If `aria-label` is invalid or unnecessary, remove it and prefer visible text, semantic HTML, `aria-labelledby`, `aria-describedby`, or a labelled wrapper when appropriate.
+- Use only valid ARIA values (for example, `aria-expanded` accepts only `true` or `false`).
+- Avoid positive `tabindex` values; prefer semantic controls, or `tabindex="0"` for non-interactive elements that must be focusable.
 
 ## What to check
 
@@ -42,7 +43,28 @@ Look for:
 - invalid ARIA values
 - missing aria-expanded on expandable controls
 - missing aria-invalid or error connection on form errors
-- dynamic messages that may need role="status" or aria-live
+- dynamic messages that may need `role="status"` or `aria-live`
+- canvas or other drawing-based UIs that need an accessible name/description
+
+### Quick guidance / examples
+
+- Icon-only button:
+  - Prefer: `<button aria-label="Close">...</button>`
+
+- Prefer native controls instead of roles:
+  - Prefer: `<button class="my-style">...</button>` instead of `<div role="button" tabindex="0">...</div>`
+
+- Expandable control:
+  - Use `aria-expanded` with boolean strings: `<button aria-expanded="false" aria-controls="panel1">Details</button>`
+
+- Live region for dynamic, non-urgent messages:
+  - Example: `<div role="status" aria-live="polite" aria-atomic="true">Status message</div>` (use `aria-live="assertive"` only for urgent interruptions)
+
+- Form error association:
+  - Example: `<input id="email" aria-invalid="true" aria-describedby="email-error">` and `<div id="email-error">Please enter a valid email.</div>`
+
+- Canvas / drawing-based UI:
+  - Give the canvas an accessible name or description: e.g. `<canvas id="game" aria-label="...</canvas>` or provide a separate off-screen description and reference it with `aria-describedby`.
 
 ## Workflow
 

@@ -27,7 +27,7 @@ The skill should:
 - Do not use aria-hidden="true" on focusable elements.
 - Do not reference IDs that do not exist.
 - Do not claim that the code is fully WCAG compliant without manual testing.
-- - Remove `aria-label` when it is used on elements or roles that do not support accessible names.
+- Remove `aria-label` when it is used on elements or roles that do not support accessible names.
 - Before adding or keeping `aria-label`, verify that the element's implicit or explicit role allows an accessible name.
 - If `aria-label` is invalid or unnecessary, remove it and prefer visible text, semantic HTML, `aria-labelledby`, `aria-describedby`, or a labelled wrapper when appropriate.
 
